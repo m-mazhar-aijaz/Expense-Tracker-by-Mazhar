@@ -1,15 +1,13 @@
 import React from 'react';
-import './App.css';
-
-//Import the Global Provider
-import { GlobalProvider } from './context/GlobalState'
-
-// Import Components
 import { Header } from './components/Header';
 import { Balance } from './components/Balance';
-import { AccountSummary } from './components/AccountSummary';
+import { IncomeExpenses } from './components/IncomeExpenses';
 import { TransactionHistory } from './components/TransactionHistory';
 import { AddTransaction } from './components/AddTransaction';
+
+import { GlobalProvider } from './context/GlobalState';
+
+import './App.css'
 
 function App() {
   return (
@@ -18,11 +16,11 @@ function App() {
       <div className='container'>
         <Balance />
       </div>
-      <AccountSummary />
+      <IncomeExpenses />
       <TransactionHistory />
       <AddTransaction />
     </GlobalProvider>
-  );
+  )
 }
 
 export default App;

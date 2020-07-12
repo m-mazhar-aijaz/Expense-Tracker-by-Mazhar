@@ -1,29 +1,38 @@
 import React, { createContext, useReducer } from 'react';
-
-// Import the Reducer
 import AppReducer from './AppReducer';
 
-// Create the initial state
+// Initial State
 const initialState = {
-    transactions: [
-        {id: 1, description: "Income 1", transactionAmount: 1000},
-        {id: 2, description: "Expense 1", transactionAmount: -150},
-        {id: 3, description: "Income 2", transactionAmount: 200},
-        {id: 4, description: "Expense 2", transactionAmount: -170}
-    ]
+    transactions: []
 }
 
-// Create the Global Context
+// Create context
 export const GlobalContext = createContext(initialState);
 
-// Create a Provider for the Global Context
+// Provider component
 export const GlobalProvider = ({ children }) => {
-    //const [state, dispatch] = useReducer(AppReducer, initialState);
- 
+    const [state, dispatch] = useReducer(AppReducer, initialState);
+
+//Action
+    function deleteTransaction(id) {
+        dispatch({
+            type: 'DELETE_TRANSACTION',
+            payload: id
+        });
+    }
+
+    function addTransaction(transaction) {
+        dispatch({
+            type: 'ADD_TRANSACTION',
+            payload: transaction
+        });
+    }
+
     return (<GlobalContext.Provider value={{
-                transactions: state.transactions
-            }}>;
-            {children}
-        </GlobalContext.Provider>
-    )
+        transactions: state.transactions,
+        deleteTransaction,
+        addTransaction
+    }}>
+        {children}
+    </GlobalContext.Provider>);
 }
